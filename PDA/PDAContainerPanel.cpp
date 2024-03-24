@@ -14,10 +14,9 @@ void UPDAContainerPanel::DisplaySelectedScreen()
 		DisplayedScreen = nullptr;
 	}
 
-	// Check current index is valid
+	// Check current screen index is valid
 	if (!ScreenWidgetClasses.IsValidIndex(CurrentScreenIndex))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("DisplaySelectedScreen: Index is invalid!"));
 		return;
 	}
 
@@ -25,7 +24,6 @@ void UPDAContainerPanel::DisplaySelectedScreen()
 	TSubclassOf<UPDASubScreenWidget> ScreenWidgetClass = ScreenWidgetClasses[CurrentScreenIndex];
 	if (!IsValid(ScreenWidgetClass))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("DisplaySelectedScreen: Screen widget class is invalid!"));
 		return;
 	}
 
@@ -33,7 +31,6 @@ void UPDAContainerPanel::DisplaySelectedScreen()
 	DisplayedScreen = CreateWidget<UPDASubScreenWidget>(this, ScreenWidgetClass);
 	if (!IsValid(DisplayedScreen))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("DisplaySelectedScreen: NewScreenWidget was invalid!"));
 		return;
 	}
 
@@ -64,5 +61,10 @@ int32 UPDAContainerPanel::ScrollScreen(bool bScrollNext)
 
 	DisplaySelectedScreen();
 
+	return CurrentScreenIndex;
+}
+
+int32 UPDAContainerPanel::GetCurrentScreenIndex() const
+{
 	return CurrentScreenIndex;
 }
