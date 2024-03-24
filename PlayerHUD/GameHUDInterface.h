@@ -1,4 +1,4 @@
-// Copyright © 2024, Alan Aldred / Ginger Beard Gaming Studios..
+// Copyright © 2024, Alan Aldred / Ginger Beard Gaming Studios. TEST
 
 #pragma once
 
