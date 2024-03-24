@@ -68,15 +68,17 @@ public:
 	// The number of categories found in EBuildableItemCategory.
 	static int32 GetNumCategories();
 
-	// Creates an array containing all the found rows with the matching category
-	static void GetBuildableItemsByCategory(UDataTable* ItemsDataTable, EBuildableItemCategory ItemCategory, TArray<FBuildableItemTableRow>& FoundItems);
-
-	// Reads the data table and stores an array of items for each catgories. The index of the outer array will be the index of the category!
+	// Goes through each item in the data table. For each category it will create a new inner array containing all the items in that category.
+	// The outter array will be the index of the category.
 	static void MapBuildableItems(UDataTable* ItemsDataTable, TArray<TArray<FBuildableItemTableRow>> &BuildableItemsArray);
 
 	// Static functin to get a display name for each category. WARNING: Must be updated when a new category is added to EBuildableItemCategory.
 	static FName GetItemCategoryDisplayName(EBuildableItemCategory Category);
 
-	// Converts an index to an enum 
-	static EBuildableItemCategory GetBuildableItemCategoryFromIndex(int32 CategoryIndex);
+protected:
+
+private:
+
+	// Creates an array containing all the found rows with the matching category
+	static void GetItemsByCategory(UDataTable* ItemsDataTable, EBuildableItemCategory ItemCategory, TArray<FBuildableItemTableRow>& FoundItems);
 };

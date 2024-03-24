@@ -12,54 +12,22 @@ int32 UBuildableItemDatabase::GetNumCategories()
 	return static_cast<int32>(EBuildableItemCategory::ENumCategories);
 }
 
-void UBuildableItemDatabase::GetBuildableItemsByCategory(UDataTable* ItemsDataTable, EBuildableItemCategory ItemCategory, TArray<FBuildableItemTableRow>& FoundItems)
-{
-	if (!IsValid(ItemsDataTable))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("GetBuildableItemsByCategory: ItemsDataTable was invalid!"));
-		return;
-	}
-
-	TArray<FBuildableItemTableRow> TempRows;
-	TempRows.Empty();
-	
-	for (TPair<FName, uint8*> RowPairs : ItemsDataTable->GetRowMap())
-	{
-		FBuildableItemTableRow* ItemData = (FBuildableItemTableRow*)RowPairs.Value;
-		if (ItemData->ItemCategory == ItemCategory)
-		{
-			TempRows.Add(*ItemData);
-		}
-	}	
-
-	FoundItems = TempRows;
-}
-
 void UBuildableItemDatabase::MapBuildableItems(UDataTable* ItemsDataTable, TArray<TArray<FBuildableItemTableRow>> &BuildableItemsArray)
 {
-	// Create a new empty TMap
-	TArray<TArray<FBuildableItemTableRow>> TempBuildableItems;
-	TempBuildableItems.Empty();
+	// Clear array so that we are not stacking the same items over and over.
+	BuildableItemsArray.Empty();
 
-	// Loop through each category 
+	// Loop through each category and store the items found in that category.
 	for (int32 CategoryIndex = 0; CategoryIndex < UBuildableItemDatabase::GetNumCategories(); CategoryIndex++)
 	{
-
 		// Get the current category enum by casting the enum by index
 		EBuildableItemCategory CurrentCategory = static_cast<EBuildableItemCategory>(CategoryIndex);
-
 		TArray<FBuildableItemTableRow> FoundItems;
-		GetBuildableItemsByCategory(ItemsDataTable, CurrentCategory, FoundItems);
+		GetItemsByCategory(ItemsDataTable, CurrentCategory, FoundItems);
 
 		// Add the array of items for this category, to the outer array.
-		TempBuildableItems.Add(FoundItems);
-		
+		BuildableItemsArray.Add(FoundItems);
 	}
-
-	// Return the filled map
-	BuildableItemsArray = TempBuildableItems;
-
-	UE_LOG(LogTemp, Warning, TEXT("MapBuildableItemCategories: Mapping buildable objects data."));
 }
 
 FName UBuildableItemDatabase::GetItemCategoryDisplayName(EBuildableItemCategory Category)
@@ -83,11 +51,30 @@ FName UBuildableItemDatabase::GetItemCategoryDisplayName(EBuildableItemCategory 
 	
 	default:
 		return FName("CategoryUnNamed");
-	}
-	
+	}	
 }
 
-EBuildableItemCategory UBuildableItemDatabase::GetBuildableItemCategoryFromIndex(int32 CategoryIndex)
+void UBuildableItemDatabase::GetItemsByCategory(UDataTable* ItemsDataTable, EBuildableItemCategory ItemCategory, TArray<FBuildableItemTableRow>& FoundItems)
 {
-	return static_cast<EBuildableItemCategory>(CategoryIndex);
+	// check if a valid data table was passed.
+	if (!IsValid(ItemsDataTable))
+	{
+		return;
+	}
+
+	// Empty the array so that we don't stack items.
+	FoundItems.Empty();
+
+	// Loop through all the rows in the data table.
+	for (TPair<FName, uint8*> RowPairs : ItemsDataTable->GetRowMap())
+	{
+		// Cast to the correct data table row type.
+		FBuildableItemTableRow* ItemTableRow = (FBuildableItemTableRow*)RowPairs.Value;
+
+		// Check if the category matches the ItemCategory.
+		if (ItemTableRow->ItemCategory == ItemCategory)
+		{
+			FoundItems.Add(*ItemTableRow);
+		}
+	}
 }

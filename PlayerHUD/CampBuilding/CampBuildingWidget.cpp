@@ -44,8 +44,7 @@ void UCampBuildingWidget::OnWidgetUpdated_Implementation()
 
 FName UCampBuildingWidget::GetCategoryDisplayName(const int32 CategoryIndex) const
 {
-	EBuildableItemCategory CategoryEnum = UBuildableItemDatabase::GetBuildableItemCategoryFromIndex(CategoryIndex);
-	return UBuildableItemDatabase::GetItemCategoryDisplayName(CategoryEnum);
+	return UBuildableItemDatabase::GetItemCategoryDisplayName(static_cast<EBuildableItemCategory>(CategoryIndex));
 }
 
 FBuildMenuSelection UCampBuildingWidget::GetBuildMenuSelection() const
