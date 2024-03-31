@@ -3,3 +3,7 @@
 
 #include "PDASubScreenWidget.h"
 
+FName UPDASubScreenWidget::GetDisplayName() const
+{
+    return DisplayName;
+}

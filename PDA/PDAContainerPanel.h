@@ -21,6 +21,9 @@ class TOKYOCOA_API UPDAContainerPanel : public UCanvasPanel
 
 public:
 
+	// Gets the index of the currently displayed screen
+	UFUNCTION(BlueprintPure, Category = "PDA")
+	int32 GetCurrentScreenIndex() const;
 
 protected:
 
@@ -36,10 +39,6 @@ protected:
 	// Scrolls through the available screens.
 	UFUNCTION(BlueprintCallable, Category = "PDA")
 	int32 ScrollScreen(bool bScrollNext = true);
-
-	// Gets the index of the currently displayed screen
-	UFUNCTION(BlueprintPure, Category = "PDA")
-	int32 GetCurrentScreenIndex() const;
 
 private:
 

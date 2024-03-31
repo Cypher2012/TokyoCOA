@@ -14,11 +14,15 @@ class TOKYOCOA_API UPDASubScreenWidget : public UUserWidget
 
 public:
 
+	// Returns the display name given to this PDA screen.
+	UFUNCTION(BlueprintPure, Category = "PDA")
+	FName GetDisplayName() const;
+
+protected:
+
 	// The display name for the screen. This will be used for building the menus etc.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PDA")
 	FName DisplayName = "Screen01";
-
-protected:
 
 private:
 

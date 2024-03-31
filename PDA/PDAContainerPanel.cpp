@@ -5,6 +5,11 @@
 
 #include "PDASubScreenWidget.h"
 
+int32 UPDAContainerPanel::GetCurrentScreenIndex() const
+{
+	return CurrentScreenIndex;
+}
+
 void UPDAContainerPanel::DisplaySelectedScreen()
 {
 	// Destroy the current widget inside of the container
@@ -61,10 +66,5 @@ int32 UPDAContainerPanel::ScrollScreen(bool bScrollNext)
 
 	DisplaySelectedScreen();
 
-	return CurrentScreenIndex;
-}
-
-int32 UPDAContainerPanel::GetCurrentScreenIndex() const
-{
 	return CurrentScreenIndex;
 }
