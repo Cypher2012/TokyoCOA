@@ -10,6 +10,11 @@ int32 UPDAContainerPanel::GetCurrentScreenIndex() const
 	return CurrentScreenIndex;
 }
 
+UPDASubScreenWidget* UPDAContainerPanel::GetDisplayedScreen() const
+{
+	return DisplayedScreen;
+}
+
 void UPDAContainerPanel::DisplaySelectedScreen()
 {
 	// Destroy the current widget inside of the container

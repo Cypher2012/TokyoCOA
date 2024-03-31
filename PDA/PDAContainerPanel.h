@@ -25,6 +25,10 @@ public:
 	UFUNCTION(BlueprintPure, Category = "PDA")
 	int32 GetCurrentScreenIndex() const;
 
+	// Gets the currently displayed screen.
+	UFUNCTION(BlueprintPure, Category = "PDA")
+	UPDASubScreenWidget* GetDisplayedScreen() const;
+
 protected:
 
 	// An array of the individual screens that make up the PDA
@@ -36,7 +40,7 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "PDA")
 	void DisplaySelectedScreen();
 
-	// Scrolls through the available screens.
+	// Scrolls through the available screens. Returns the index of the new screen.
 	UFUNCTION(BlueprintCallable, Category = "PDA")
 	int32 ScrollScreen(bool bScrollNext = true);
 

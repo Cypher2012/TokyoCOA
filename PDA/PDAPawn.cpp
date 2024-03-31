@@ -79,3 +79,8 @@ void APDAPawn::DisablePDA()
 	bIsEnabled = false;
 }
 
+bool APDAPawn::GetIsEnabled() const
+{
+	return bIsEnabled;
+}
+

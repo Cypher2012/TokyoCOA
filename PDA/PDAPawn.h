@@ -11,6 +11,8 @@ class UCameraComponent;
 class UPDAWidget;
 class UWidgetComponent;
 
+
+// The main pawn that will be used for the physical PDA object.
 UCLASS()
 class TOKYOCOA_API APDAPawn : public AActor
 {
@@ -25,6 +27,10 @@ public:
 
 	// Player wants to disable the PDA
 	void DisablePDA();
+
+	// Returns if the PDA is currently enabled.
+	UFUNCTION(BlueprintPure, Category = "PDA")
+	bool GetIsEnabled() const;
 
 protected:
 
